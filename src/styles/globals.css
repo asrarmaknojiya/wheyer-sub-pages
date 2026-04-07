@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 .pristina {
-  font-family: "Pristina", cursive;
+  font-family: "Pristina", "cursive";
 }
 
 :root {
