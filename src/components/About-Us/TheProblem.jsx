@@ -1,118 +1,155 @@
 import React from 'react';
-import { AlertTriangle, CheckCircle, Flame, Target } from 'lucide-react'; // Using lucide-react for sharp icons
+import { ShieldCheck, ArrowRight, Ban, Lock, Search, AlertCircle, RefreshCcw, UserX } from 'lucide-react';
 
 export default function TheProblem() {
-  // Configurable URLs for the images
   const images = {
-    // A photo representing frustration/stress in travel
-    problemSide: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop", 
-    // An inspirational photo representing trust/adventure
-    solutionSide: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=1600&auto=format&fit=crop"
+    // Chaos/Stressful airport/travel situation for Problem card
+    scamImage: "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?q=80&w=800&auto=format&fit=crop",
+    // Premium, clear, safe mountain destination for Wheyer card
+    safeImage: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop"
   };
 
-  const painPoints = [
-    { text: "Unverified operators", desc: "Risky bookings with unknown vendors." },
-    { text: "Hidden pricing", desc: "Unexpected fees at checkout or during travel." },
-    { text: "No accountability", desc: "Operators vanishing after payment is made." },
-    { text: "Poor refund experiences", desc: "Complex, lengthy, or impossible refund processes." },
-    { text: "Lack of trust", desc: "Reluctance to book with authentic local specialists." },
-  ];
-
   return (
-    <section className="sec-container py-20 md:py-32 relative overflow-hidden">
-      
-      {/* BACKGROUND DECORATION - Red Blob for problem section (Optional, based on your CSS blobs) */}
-      <div className="absolute top-1/4 -left-1/4 w-[500px] height-[500px] bg-color-red opacity-[0.03] rounded-full filter blur-[100px] z-[-1]" />
-
-      <div className="max-w-7xl mx-auto">
+    <section className=" py-12  bg-transparent relative overflow-hidden">
+      <div className="sec-container max-w-7xl mx-auto">
         
-        {/* TOP HEADER BLOCK - Global Styles */}
-        <div className="mb-16 md:mb-24 text-center max-w-3xl mx-auto px-4">
-         
-          <h2 className="heading about-heading mt-3  ">
-            Travel booking today is <span className="text-color-red relative inline-block">broken.<span className="absolute bottom-0 left-0 w-full h-1 bg-color-red rounded-full opacity-30"></span></span>
-          </h2>
-          <p className="about-heading-title">
-            The joy of exploration is being overshadowed by anxiety. Travelers are stuck between the efficiency of giant, impersonal platforms and the genuine but high-risk allure of smaller, unverified operators.
-          </p>
-        </div>
-
-        {/* PREMIUM VISUAL SPLIT LAYOUT */}
-        <div className="grid lg:grid-cols-12 gap-10 xl:gap-16 items-center px-4">
-          
-          {/* LEFT SIDE: The Problem List & Visual Frustration (Lg: 5 cols) */}
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <div className="space-y-6">
-              {painPoints.map((point, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start gap-4 p-5 rounded-2xl transition-all duration-300 hover:bg-white hover:shadow-lg"
-                >
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="bg-red-50 border border-red-100 p-2.5 rounded-full">
-                      <AlertTriangle size={20} className="text-color-red" />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-secondary text-lg font-semibold text-secondary">{point.text}</h4>
-                    <p className="text-gray text-sm mt-1">{point.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* RIGHT SIDE: Visual Split/Frustration to Relief (Lg: 7 cols) */}
-          <div className="lg:col-span-7 order-1 lg:order-2 mb-10 lg:mb-0 relative">
+        {/* --- RE-DESIGNED SYMMETRIC HEADER --- */}
+        <div className="mb-16 md:mb-28 px-4 text-center lg:text-left">
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
             
-            {/* The Before Image (Small, Overlayed Frustration) */}
-            <div className="absolute -top-10 -left-10 md:-left-16 z-10 w-2/5 md:w-1/3 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-[-5deg]">
+            {/* Main Headline */}
+            <div className="lg:col-span-7">
+             
+              <h2 className="heading about-heading m-0">
+                The travel industry <br className="hidden md:block" />
+                is <span className="text-red italic ">fundamentally broken.</span>
+              </h2>
+            </div>
+            
+            {/* Description Block */}
+            <div className="lg:col-span-5 lg:pl-10 relative pt-10 lg:pt-0 mt-10 lg:mt-0 lg:border-l-2 lg:border-gray-100">
+              <p className="text-xl md:text-2xl font-semibold text-secondary leading-snug mb-5">
+                Most platforms prioritize the booking. <br />
+                <span className="text-color-cyan">Wheyer prioritizes the traveler.</span>
+              </p>
+              <p className="about-heading-title text-sm md:text-base opacity-70">
+                We’ve replaced blind faith with built-in accountability. No more gambles, just guaranteed experiences.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+
+        {/* --- COMPARISON LAYOUT --- */}
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 relative ">
+          
+          {/* 1. THE OTHER PLATFORMS */}
+          <div className="group relative rounded-[40px] overflow-hidden border border-red-100 bg-red-50/30 p-8 md:p-12 transition-all hover:shadow-2xl">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-3 bg-color-red/10 rounded-2xl text-color-red">
+                <AlertCircle size={32} />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-secondary font-secondary uppercase tracking-tight">The Other Platforms</h3>
+            </div>
+
+            <div className="relative rounded-[30px] overflow-hidden aspect-video mb-10 shadow-lg">
               <img 
-                src={images.problemSide} 
-                alt="Frustrated traveler looking at computer" 
-                className="w-full h-full object-cover grayscale opacity-80"
+                src={images.scamImage} 
+                className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700" 
+                alt="Market Chaos" 
               />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4">
-                <p className="text-white font-bold text-center text-xs md:text-sm tracking-tight">Anxiety & Risk</p>
+              <div className="absolute inset-0 bg-color-red/10 mix-blend-multiply" />
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2">
+                 <Ban size={14} className="text-color-red" />
+                 <span className="text-[10px] font-black uppercase text-secondary">High Risk Zone</span>
               </div>
             </div>
 
-            {/* The Hero Image (Premium, Aspirational Destination) */}
-            <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-[25px] overflow-hidden shadow-[-20px_20px_60px_-15px_rgba(0,0,0,0.3)]">
-              <img 
-                src={images.solutionSide} 
-                alt="Relaxed travelers exploring a stunning landscape" 
-                className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
-              />
-              {/* Radial gradient overlay to make text pop */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              
-              {/* WHEyer Fixes This (The Solution Box using .glass) */}
-              <div className="absolute bottom-6 left-6 right-6 md:left-10 md:right-auto md:bottom-10 md:max-w-sm glass p-6 md:p-8 rounded-2xl border-white/10 shadow-2xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <Target size={24} className="text-color-cyan" />
-                  <h3 className="heading !text-white !text-2xl md:!text-3xl">
-                    Wheyer fixes this.
-                  </h3>
-                </div>
-                <p className="text-white/80 text-sm md:text-base leading-relaxed mb-5">
-                  We verify vendors, normalize pricing, and hold payments in escrow. We bring accountability to smaller vendors, allowing you to choose trust <strong className="text-white">and</strong> convenience.
-                </p>
-                <button className="bg-color-cyan hover:bg-color-cyan-hover text-secondary font-bold px-6 py-3 rounded-xl transition-colors text-sm flex items-center gap-2 group">
-                  Learn About Our Verification
-                  <CheckCircle size={18} className="opacity-70 group-hover:opacity-100" />
-                </button>
+            <ul className="space-y-5">
+              {[
+                { t: "Unverified operators", d: "Risky bookings with unknown vendors.", i: <UserX size={20}/> },
+                { t: "Hidden pricing", d: "Unexpected fees at checkout or during travel.", i: <Lock size={20}/> },
+                { t: "No accountability after payment", d: "Operators vanishing after payment is made.", i: <AlertCircle size={20}/> },
+                { t: "Poor refund experiences", d: "Complex, lengthy, or impossible refund processes.", i: <RefreshCcw size={20}/> },
+                { t: "Lack of trust in smaller vendors", d: "Reluctance to book with authentic local specialists.", i: <Search size={20}/> }
+              ].map((item, i) => (
+                <li key={i} className="flex gap-4 items-start opacity-70 group-hover:opacity-100 transition-opacity">
+                  <div className="text-color-red mt-1 shrink-0">{item.i}</div>
+                  <div>
+                    <p className="font-bold text-secondary text-sm md:text-base leading-tight">{item.t}</p>
+                    <p className="text-[11px] md:text-xs text-gray mt-1">{item.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 2. THE WHEYER WAY (Icons Fixed) */}
+          <div className="group relative rounded-[40px] overflow-hidden bg-secondary p-8 md:p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] transform lg:translate-y-8">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-color-cyan/10 rounded-full blur-[100px]" />
+            
+            <div className="flex items-center gap-3 mb-8 relative z-10">
+              <div className="p-3 bg-color-cyan/20 rounded-2xl text-cyan">
+                <ShieldCheck size={32} />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-white font-secondary uppercase tracking-tight">The Wheyer Way</h3>
+            </div>
+
+            <div className="relative rounded-[30px] overflow-hidden aspect-video mb-10 shadow-2xl border border-white/10 group-hover:scale-[1.01] transition-transform duration-500">
+              <img src={images.safeImage} className="w-full h-full object-cover" alt="Safe Travel" />
+              <div className="absolute inset-0 bg-linear-to-t from-secondary/60 to-transparent" />
+              <div className="absolute bottom-4 left-4 glass px-4 py-2 rounded-full flex items-center gap-2 shadow-inner border border-white/20">
+                 <ShieldCheck size={16} className="text-color-cyan" />
+                 <span className="text-[10px] font-black uppercase text-white tracking-widest">Accountability Active</span>
               </div>
             </div>
+
+            {/* HIGHLY VISIBLE ICONS FOR WHEYER WAY */}
+            <ul className="space-y-8 relative z-10">
+              {[
+                { 
+                  t: "Identity Vetting", 
+                  d: "We physically verify every single operator on our map.", 
+                  i: <Search size={22} className="text-white" /> 
+                },
+                { 
+                  t: "Secure Escrow", 
+                  d: "Payments stay with us until your trip is completed.", 
+                  i: <Lock size={22} className="text-white" /> 
+                },
+                { 
+                  t: "Radical Transparency", 
+                  d: "One price. No surprises. Complete accountability.", 
+                  i: <ShieldCheck size={22} className="text-white" /> 
+                }
+              ].map((item, i) => (
+                <li key={i} className="flex gap-4 items-start group/item">
+                  
+                  {/* Containerized, Cyan icon guarantees visibility */}
+                  <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 rounded-full bg-color-cyan shadow-lg shadow-color-cyan/20 shrink-0 group-hover/item:scale-110 transition-transform duration-300">
+                    {item.i}
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-bold text-white text-base md:text-lg mb-1 leading-tight">{item.t}</h4>
+                    <p className="text-white/60 text-xs md:text-sm leading-relaxed">{item.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+<button className="mt-10 w-full py-4 bg-cyan hover:opacity-90 text-secondary font-bold rounded-2xl transition-all flex items-center justify-center gap-3 group relative z-10 shadow-xl shadow-(--color-cyan)/20">
+              Learn About Our Verification
+              <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+            </button>
           </div>
 
         </div>
 
-        {/* BOTTOM TAGLINE - Pristina Global Class */}
-        <div className="mt-20 md:mt-32 text-center px-4">
-          <p className="pristina text-4xl md:text-5xl text-color-cyan opacity-80 leading-snug max-w-2xl mx-auto">
-            Where accountability unlocks adventure.
-          </p>
+        {/* TAGLINE */}
+        <div className="mt-32 text-center px-4">
+           <p className="pristina text-4xl md:text-6xl text-color-cyan/30 opacity-60">
+             Confidence is the ultimate luxury.
+           </p>
         </div>
 
       </div>
