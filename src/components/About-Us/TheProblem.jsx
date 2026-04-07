@@ -22,7 +22,7 @@ export default function TheProblem() {
     <section className="sec-container py-20 md:py-32 relative overflow-hidden">
       
       {/* BACKGROUND DECORATION - Red Blob for problem section (Optional, based on your CSS blobs) */}
-      <div className="absolute top-1/4 -left-1/4 w-[500px] height-[500px] bg-color-red opacity-[0.03] rounded-full filter blur-[100px] z-[-1]" />
+      <div className="absolute top-1/4 -left-1/4 w-125 height-[500px] bg-color-red opacity-[0.03] rounded-full filter blur-[100px] z-[-1]" />
 
       <div className="max-w-7xl mx-auto">
         
@@ -48,7 +48,7 @@ export default function TheProblem() {
                   key={index} 
                   className="flex items-start gap-4 p-5 rounded-2xl transition-all duration-300 hover:bg-white hover:shadow-lg"
                 >
-                  <div className="flex-shrink-0 mt-1">
+                  <div className="shrink-0 mt-1">
                     <div className="bg-red-50 border border-red-100 p-2.5 rounded-full">
                       <AlertTriangle size={20} className="text-color-red" />
                     </div>
@@ -66,7 +66,7 @@ export default function TheProblem() {
           <div className="lg:col-span-7 order-1 lg:order-2 mb-10 lg:mb-0 relative">
             
             {/* The Before Image (Small, Overlayed Frustration) */}
-            <div className="absolute -top-10 -left-10 md:-left-16 z-10 w-2/5 md:w-1/3 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-[-5deg]">
+            <div className="absolute -top-10 -left-10 md:-left-16 z-10 w-2/5 md:w-1/3 aspect-3/4 rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-[-5deg]">
               <img 
                 src={images.problemSide} 
                 alt="Frustrated traveler looking at computer" 
@@ -78,7 +78,7 @@ export default function TheProblem() {
             </div>
 
             {/* The Hero Image (Premium, Aspirational Destination) */}
-            <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-[25px] overflow-hidden shadow-[-20px_20px_60px_-15px_rgba(0,0,0,0.3)]">
+            <div className="relative aspect-16/10 md:aspect-video rounded-[25px] overflow-hidden shadow-[-20px_20px_60px_-15px_rgba(0,0,0,0.3)]">
               <img 
                 src={images.solutionSide} 
                 alt="Relaxed travelers exploring a stunning landscape" 
