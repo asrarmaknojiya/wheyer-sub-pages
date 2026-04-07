@@ -1,14 +1,14 @@
-// import WheeyerAboutHero from "@/components/About-Us/Hero";
-// import Hero from "@/components/About-Us/Hero";
-
-import AboutPage from "@/components/About-Us/Hero";
+import AboutHero from "@/components/About-Us/Hero";
+import Hero from "@/components/About-Us/Hero";
+import TheProblem from "@/components/About-Us/TheProblem";
 
 
 export default function Home() {
     return (
         <>
             {/* <Hero /> */}
-            <AboutPage/>
+            <AboutHero/>
+            <TheProblem />
         </>
     );
 }

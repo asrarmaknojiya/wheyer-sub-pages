@@ -229,5 +229,33 @@ svg {
 
 
 
-/*  */
+/*Wheyer About Us Page Common Css */
 
+.about-heading {
+  font-size: 1.875rem; /* text-3xl */
+  line-height: 1.25;   /* leading-tight */
+}
+
+@media (min-width: 768px) {
+  .about-heading {
+    font-size: 3rem; /* md:text-5xl */
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-heading {
+    font-size: 3.75rem; /* lg:text-6xl */
+  }
+}
+
+
+.about-heading-title{
+  color: #6b7280;     /* default Tailwind gray (text-gray-500) */
+  line-height: 1.625; /* leading-relaxed */
+}
+
+@media (min-width: 768px) {
+  .about-heading-title {
+    font-size: 1.125rem; /* md:text-lg */
+  }
+}
