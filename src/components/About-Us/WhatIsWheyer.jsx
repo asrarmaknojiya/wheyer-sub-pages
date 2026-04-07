@@ -11,10 +11,10 @@ const WhatIsWheyer = () => {
 
           {/* TOP HEADING */}
           <div className="text-center mb-12">
-            <h2 className="heading text-3xl md:text-5xl font-semibold">
+            <h2 className="heading about-heading">
               What is Wheyer?
             </h2>
-            <p className="heading-title mt-2">
+            <p className="about-heading-title mt-2">
               A new way to explore, trust, and travel
             </p>
           </div>
