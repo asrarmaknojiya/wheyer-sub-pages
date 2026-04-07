@@ -1,10 +1,13 @@
-import Hero from "@/components/About-Us/Hero";
+import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
 
 
 export default function Home() {
     return (
         <>
-            <Hero />
+            {/* <Hero /> */}
+            <WhatIsWheyer/>
+            
+
         </>
     );
 }
