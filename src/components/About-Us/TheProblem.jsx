@@ -147,9 +147,9 @@ export default function TheProblem() {
 
         {/* TAGLINE */}
         <div className="mt-32 text-center px-4">
-           <p className="pristina text-4xl md:text-6xl text-color-cyan/30 opacity-60">
+           <marquee className="pristina text-4xl md:text-6xl  opacity-60">
              Confidence is the ultimate luxury.
-           </p>
+           </marquee>
         </div>
 
       </div>
