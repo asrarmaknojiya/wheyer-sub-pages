@@ -5,6 +5,7 @@ import ForTravelers from "@/components/About-Us/ForTravelers";
 import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
 import OurSolution from "@/components/About-Us/OurSolution";
 import TheProblem from "@/components/About-Us/TheProblem";
+import CTASection from "@/components/About-Us/Cta";
 
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
             <ForTravelers />
             {/* <OurVision/> */}
             <VendorSection/>
+            <CTASection/>
             
 
 
