@@ -6,6 +6,7 @@ import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
 import OurSolution from "@/components/About-Us/OurSolution";
 import TrustLayer from "@/components/About-Us/TrustLayer";
 import TheProblem from "@/components/About-Us/TheProblem";
+import CTASection from "@/components/About-Us/Cta";
 
 
 export default function Home() {
@@ -18,8 +19,9 @@ export default function Home() {
             <CoreDifferentiators />
             <ForTravelers />
             {/* <OurVision/> */}
-            <VendorSection />
+            <VendorSection/>
             <TrustLayer />
+            <CTASection/>
 
 
 
