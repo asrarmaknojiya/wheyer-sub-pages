@@ -5,20 +5,22 @@ import ForTravelers from "@/components/About-Us/ForTravelers";
 import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
 import TheProblem from "@/components/About-Us/TheProblem";
 import OurSolution from "@/components/About-Us/OurSolution";
+import TrustLayer from "@/components/About-Us/TrustLayer";
 
 
 export default function Home() {
     return (
         <>
-            <AboutHero/>
-            <WhatIsWheyer/>
+            <AboutHero />
+            <WhatIsWheyer />
             <TheProblem />
-            <OurSolution/>
-            <CoreDifferentiators/>
+            <OurSolution />
+            <CoreDifferentiators />
             <ForTravelers />
             {/* <OurVision/> */}
-            <VendorSection/>
-            
+            <VendorSection />
+            <TrustLayer />
+
 
 
 
