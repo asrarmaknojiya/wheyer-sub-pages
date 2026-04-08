@@ -161,27 +161,124 @@ export default function TrustLayer() {
             ))}
           </div>
 
-          {/* ── THREE PILLARS ── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
-            {pillars.map((p, i) => {
-              const Icon = p.icon
-              return (
-                <div
-                  key={i}
-                  className="group relative rounded-2xl border border-secondary/8 bg-white p-7 hover:shadow-lg hover:border-color-cyan/30 transition-all duration-300 overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-color-cyan/5 rounded-bl-full" />
-                  <div className="relative z-10">
-                    <div className="w-11 h-11 rounded-xl bg-color-cyan/10 border border-color-cyan/20 flex items-center justify-center mb-5">
-                      <Icon size={20} className="text-color-cyan" />
-                    </div>
-                    <h3 className="heading font-secondary text-base mb-2">{p.title}</h3>
-                    <p className="heading-title text-sm leading-relaxed">{p.desc}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+        {/* ── THREE PILLARS ── */}
+<div className="mb-14 grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+  {/* PILLAR 1 — Secure Transactions — tall left card */}
+  <div className="group relative rounded-2xl overflow-hidden lg:row-span-2" style={{ minHeight: '420px' }}>
+    <Image
+      src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
+      alt="Secure Transactions"
+      fill
+      className="object-cover group-hover:scale-105 transition-transform duration-700"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+
+    {/* Floating top badge */}
+    <div className="absolute top-5 left-5 right-5 z-10 flex items-center justify-between">
+      <span className="text-[10px] font-bold tracking-widest uppercase text-white/40">01</span>
+      <div className="bg-color-cyan/20 border border-color-cyan/30 rounded-full px-3 py-1 flex items-center gap-1.5">
+        <div className="w-1.5 h-1.5 rounded-full bg-color-cyan animate-pulse" />
+        <span className="text-color-cyan text-[10px] font-bold tracking-wider uppercase">Protected</span>
+      </div>
+    </div>
+
+    {/* Bottom content */}
+    <div className="absolute bottom-0 left-0 right-0 z-10 p-7">
+      <div className="mb-5">
+        <div className="font-secondary font-bold text-color-cyan text-5xl leading-none mb-1">100%</div>
+        <div className="text-white/30 text-[10px] uppercase tracking-widest">Payments in escrow</div>
+      </div>
+      <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center mb-4 group-hover:bg-color-cyan/20 group-hover:border-color-cyan/30 transition-all duration-300">
+        <Lock size={15} className="text-white group-hover:text-color-cyan transition-colors duration-300" />
+      </div>
+      <h3 className="font-secondary font-bold text-white text-xl leading-tight mb-2">
+        Secure Transactions
+      </h3>
+      <p className="text-white/50 text-xs leading-relaxed">
+        Every rupee held in escrow until your experience is confirmed complete. Operators never touch your money early.
+      </p>
+    </div>
+  </div>
+
+  {/* PILLAR 2 — Vendor Accountability — top right, horizontal */}
+  <div className="group relative rounded-2xl overflow-hidden lg:col-span-2" style={{ minHeight: '200px' }}>
+    <Image
+      src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1000&q=80"
+      alt="Vendor Accountability"
+      fill
+      className="object-cover group-hover:scale-105 transition-transform duration-700"
+    />
+    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20" />
+
+    <div className="relative z-10 flex items-center gap-6 h-full min-h-[200px] px-8 py-7">
+
+      {/* Left icon */}
+      <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-color-cyan/20 group-hover:border-color-cyan/30 transition-all duration-300">
+        <Users size={24} className="text-white group-hover:text-color-cyan transition-colors duration-300" />
+      </div>
+
+      {/* Text */}
+      <div className="flex-1">
+        <span className="text-white/25 text-[10px] font-bold tracking-widest uppercase block mb-2">02 — Accountability</span>
+        <h3 className="font-secondary font-bold text-white text-xl leading-tight mb-1.5">
+          Vendor Accountability
+        </h3>
+        <p className="text-white/50 text-xs leading-relaxed max-w-sm">
+          Operators are verified, rated, and removed if they underperform. No exceptions, ever.
+        </p>
+      </div>
+
+      {/* Right decorative stat */}
+      <div className="flex-shrink-0 hidden sm:flex flex-col items-end gap-1">
+        <div className="font-secondary font-bold text-white/10 text-6xl leading-none select-none">
+          ✓
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {/* PILLAR 3 — Fair Dispute Handling — bottom right, horizontal */}
+  <div className="group relative rounded-2xl overflow-hidden lg:col-span-2" style={{ minHeight: '200px' }}>
+    <Image
+      src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1000&q=80"
+      alt="Fair Dispute Handling"
+      fill
+      className="object-cover group-hover:scale-105 transition-transform duration-700"
+    />
+    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/20" />
+
+    <div className="relative z-10 flex items-center gap-6 h-full min-h-[200px] px-8 py-7">
+
+      {/* Left icon */}
+      <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-color-cyan/20 group-hover:border-color-cyan/30 transition-all duration-300">
+        <Scale size={24} className="text-white group-hover:text-color-cyan transition-colors duration-300" />
+      </div>
+
+      {/* Text */}
+      <div className="flex-1">
+        <span className="text-white/25 text-[10px] font-bold tracking-widest uppercase block mb-2">03 — Resolution</span>
+        <h3 className="font-secondary font-bold text-white text-xl leading-tight mb-1.5">
+          Fair Dispute Handling
+        </h3>
+        <p className="text-white/50 text-xs leading-relaxed max-w-sm">
+          Structured resolution by a neutral team — every complaint reviewed within 24 hours, every time.
+        </p>
+      </div>
+
+      {/* 24hr badge */}
+      <div className="flex-shrink-0 hidden sm:block">
+        <div className="bg-color-cyan/15 border border-color-cyan/25 rounded-2xl px-4 py-3 text-center">
+          <div className="font-secondary font-bold text-color-cyan text-2xl leading-none">24hr</div>
+          <div className="text-white/30 text-[10px] uppercase tracking-widest mt-1">Resolution</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
           {/* ── BOTTOM STATEMENT ── */}
           <div className="rounded-3xl bg-secondary overflow-hidden">
