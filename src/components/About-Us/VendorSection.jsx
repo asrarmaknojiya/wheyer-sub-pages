@@ -60,13 +60,21 @@ function FeatureChip({ item, index }) {
       ref={ref}
       initial={{ opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        delay: index * 0.08,
+        duration: 0.48,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="group flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-gray-100 bg-white hover:border-cyan-200 hover:shadow-[0px_4px_20px_rgba(34,211,238,0.10)] transition-all duration-300"
     >
       {/* Step number */}
       <span
         className="text-[11px] font-bold tabular-nums shrink-0 w-5 text-center"
-        style={{ fontFamily: "var(--secondary-font)", color: "var(--color-cyan)", opacity: 0.5 }}
+        style={{
+          fontFamily: "var(--secondary-font)",
+          color: "var(--color-cyan)",
+          opacity: 0.5,
+        }}
       >
         {item.num}
       </span>
@@ -91,13 +99,19 @@ function FeatureChip({ item, index }) {
       <div className="min-w-0 flex-1">
         <p
           className="text-sm font-semibold leading-none mb-0.5"
-          style={{ fontFamily: "var(--secondary-font)", color: "var(--color-secondary)" }}
+          style={{
+            fontFamily: "var(--secondary-font)",
+            color: "var(--color-secondary)",
+          }}
         >
           {item.title}
         </p>
         <p
           className="text-xs truncate"
-          style={{ fontFamily: "var(--primary-font)", color: "var(--color-gray)" }}
+          style={{
+            fontFamily: "var(--primary-font)",
+            color: "var(--color-gray)",
+          }}
         >
           {item.desc}
         </p>
@@ -172,19 +186,28 @@ function PhotoCollage() {
       >
         <p
           className="text-[10px] font-semibold uppercase tracking-wider mb-0.5"
-          style={{ fontFamily: "var(--primary-font)", color: "var(--color-cyan)" }}
+          style={{
+            fontFamily: "var(--primary-font)",
+            color: "var(--color-cyan)",
+          }}
         >
           Active Partners
         </p>
         <p
           className="text-2xl font-bold leading-none"
-          style={{ fontFamily: "var(--secondary-font)", color: "var(--color-secondary)" }}
+          style={{
+            fontFamily: "var(--secondary-font)",
+            color: "var(--color-secondary)",
+          }}
         >
           1,200+
         </p>
         <p
           className="text-[11px] mt-0.5"
-          style={{ fontFamily: "var(--primary-font)", color: "var(--color-gray)" }}
+          style={{
+            fontFamily: "var(--primary-font)",
+            color: "var(--color-gray)",
+          }}
         >
           across India
         </p>
@@ -202,18 +225,28 @@ function PhotoCollage() {
           className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
           style={{ background: "rgba(34,211,238,0.10)" }}
         >
-          <ShieldCheck size={13} strokeWidth={2} style={{ color: "var(--color-cyan)" }} />
+          <ShieldCheck
+            size={13}
+            strokeWidth={2}
+            style={{ color: "var(--color-cyan)" }}
+          />
         </div>
         <div>
           <p
             className="text-xs font-bold leading-none"
-            style={{ fontFamily: "var(--secondary-font)", color: "var(--color-secondary)" }}
+            style={{
+              fontFamily: "var(--secondary-font)",
+              color: "var(--color-secondary)",
+            }}
           >
             Escrow Protected
           </p>
           <p
             className="text-[10px] mt-0.5"
-            style={{ fontFamily: "var(--primary-font)", color: "var(--color-gray)" }}
+            style={{
+              fontFamily: "var(--primary-font)",
+              color: "var(--color-gray)",
+            }}
           >
             Every payment secured
           </p>
@@ -231,7 +264,6 @@ export default function ForVendors() {
   return (
     <section className="py-14 sm:py-20">
       <div className="sec-container">
-
         {/* Header */}
         <motion.div
           ref={headRef}
@@ -241,7 +273,10 @@ export default function ForVendors() {
           className="mb-10 md:mb-14"
         >
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-1 h-5 rounded-full" style={{ background: "var(--color-cyan)" }} />
+            <span
+              className="w-1 h-5 rounded-full"
+              style={{ background: "var(--color-cyan)" }}
+            />
             <span
               className="text-xs font-semibold uppercase tracking-widest text-gray-400"
               style={{ fontFamily: "var(--primary-font)" }}
@@ -251,11 +286,15 @@ export default function ForVendors() {
           </div>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="heading !text-3xl sm:!text-4xl !leading-tight max-w-lg">
-              Grow Your Travel Business<br className="hidden sm:block" /> on Wheyer
+              Grow Your Travel Business
+              <br className="hidden sm:block" /> on Wheyer
             </h2>
             <p
               className="text-sm leading-relaxed max-w-xs"
-              style={{ fontFamily: "var(--primary-font)", color: "var(--color-gray)" }}
+              style={{
+                fontFamily: "var(--primary-font)",
+                color: "var(--color-gray)",
+              }}
             >
               Go digital without building your own website or booking system.
             </p>
@@ -264,53 +303,164 @@ export default function ForVendors() {
 
         {/* Body — collage left, chips right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
           {/* LEFT */}
           <PhotoCollage />
 
           {/* RIGHT */}
-          <div className="flex flex-col gap-3">
-            {features.map((f, i) => (
-              <FeatureChip key={f.num} item={f} index={i} />
-            ))}
+          {/* RIGHT SIDE — Snake Stepper */}
+          <div className="relative flex flex-col w-[97%]" style={{ gap: 0 }}>
+            {features.map((item, i) => {
+              const Icon = item.icon;
+              const isReversed = i % 2 !== 0;
 
-            {/* Note strip */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={headInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.52, duration: 0.4 }}
-              className="mt-1 flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-dashed"
-              style={{ borderColor: "var(--color-cyan)", background: "rgba(34,211,238,0.04)" }}
-            >
-              <CheckCircle2 size={16} strokeWidth={2} style={{ color: "var(--color-cyan)" }} className="shrink-0" />
-              <p
-                className="text-sm font-medium"
-                style={{ fontFamily: "var(--primary-font)", color: "var(--color-secondary)" }}
-              >
-                No website or booking system required.
-              </p>
-            </motion.div>
+              return (
+                <div key={item.num}>
+                  <div
+                    className={`flex ${isReversed ? "flex-row-reverse" : "flex-row"}`}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: isReversed ? -20 : 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                      className="group flex items-start gap-3 px-4 py-4 rounded-[18px] border border-gray-100 bg-white hover:border-cyan-300 hover:shadow-[0px_4px_20px_rgba(34,211,238,0.10)] transition-all duration-300 w-full"
+                    >
+                      {/* Icon */}
+                      <div
+                        className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 group-hover:bg-cyan-400"
+                        style={{ background: "rgba(34,211,238,0.09)" }}
+                      >
+                        <Icon
+                          size={16}
+                          strokeWidth={2.2}
+                          className="transition-colors duration-300 group-hover:text-white"
+                          style={{ color: "var(--color-cyan)" }}
+                        />
+                      </div>
 
-            {/* CTA */}
+                      {/* Text */}
+                      <div className="flex-1 min-w-0 pt-0.5">
+                        <p
+                          className="text-sm font-semibold leading-snug mb-0.5"
+                          style={{
+                            fontFamily: "var(--secondary-font)",
+                            color: "var(--color-secondary)",
+                          }}
+                        >
+                          {item.title}
+                        </p>
+                        <p
+                          className="text-xs leading-relaxed"
+                          style={{
+                            fontFamily: "var(--primary-font)",
+                            color: "var(--color-gray)",
+                          }}
+                        >
+                          {item.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Snake Connector — skip after last item */}
+                  {i < features.length - 1 && (
+                    <div className="relative w-full" style={{ height: "36px" }}>
+                      <svg
+                        width="100%"
+                        height="36"
+                        viewBox="0 0 400 36"
+                        preserveAspectRatio="none"
+                        overflow="visible"
+                      >
+                        <defs>
+                          <marker
+                            id={`arrow-${i}`}
+                            viewBox="0 0 10 10"
+                            refX="8"
+                            refY="5"
+                            markerWidth="5"
+                            markerHeight="5"
+                            orient="auto-start-reverse"
+                          >
+                            <path
+                              d="M2 1L8 5L2 9"
+                              fill="none"
+                              stroke="#22D3EE"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </marker>
+                        </defs>
+
+                        {/* Right-side arc (after odd-indexed cards: 0, 2, 4) */}
+                        {!isReversed && (
+                          <path
+                            d="M 399 0 Q 428 18 399 36"
+                            fill="none"
+                            stroke="#22D3EE"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeDasharray="5 4"
+                            opacity="0.6"
+                            markerEnd={`url(#arrow-${i})`}
+                          />
+                        )}
+
+                        {/* Left-side arc (after even-indexed reversed cards: 1, 3) */}
+                        {isReversed && (
+                          <path
+                            d="M 1 0 Q -28 18 1 36"
+                            fill="none"
+                            stroke="#22D3EE"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeDasharray="5 4"
+                            opacity="0.6"
+                            markerEnd={`url(#arrow-${i})`}
+                          />
+                        )}
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* CTA Box */}
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={headInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6, duration: 0.4 }}
-              className="mt-2"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="mt-5 p-5 rounded-3xl bg-gray-50/50 border border-dashed border-gray-200"
             >
-              <motion.button
-                whileHover={{ scale: 1.025 }}
-                whileTap={{ scale: 0.975 }}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-xl text-white text-sm font-semibold"
-                style={{
-                  background: "var(--color-cyan)",
-                  fontFamily: "var(--primary-font)",
-                  boxShadow: "0 4px 14px rgba(34,211,238,0.28)",
-                }}
-              >
-                Become a Partner
-                <ArrowRight size={15} strokeWidth={2.5} />
-              </motion.button>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h4
+                    className="font-bold text-base"
+                    style={{ color: "var(--color-secondary)" }}
+                  >
+                    Ready to scale?
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Takes less than 5 minutes to set up.
+                  </p>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.05, x: 4 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 shadow-md hover:bg-black transition-all text-white"
+                  style={{ background: "var(--color-secondary)" }}
+                >
+                  Get Started
+                  <ArrowRight
+                    size={15}
+                    style={{ color: "var(--color-cyan)" }}
+                  />
+                </motion.button>
+              </div>
             </motion.div>
           </div>
         </div>
