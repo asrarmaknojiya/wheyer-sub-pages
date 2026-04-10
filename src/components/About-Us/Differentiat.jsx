@@ -37,8 +37,7 @@ function GlassCard({ item, index, isInView }) {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.1, duration: 0.6 }}
-      whileHover={{ y: -5 }}
-      className="relative overflow-hidden group h-[420px] rounded-[2rem] border border-gray-100/50 shadow-sm"
+      className="relative overflow-hidden group h-105 rounded-4xl border border-gray-100/50 shadow-sm"
     >
       {/* ── Background Image ── */}
       <img
@@ -48,11 +47,11 @@ function GlassCard({ item, index, isInView }) {
       />
       
       {/* ── Gradient Overlay (Improves text readability) ── */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 z-0" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-black/60 z-0" />
 
       {/* ── Floating Glass Content ── */}
       <div 
-        className="absolute bottom-4 left-4 right-4 z-10 p-5 rounded-[1.5rem] border border-white/20 overflow-hidden"
+        className="absolute bottom-4 left-4 right-4 z-10 p-5 rounded-3xl border border-white/20 overflow-hidden"
         style={{ 
           background: "rgba(255, 255, 255, 0.08)", 
           backdropFilter: "blur(16px)", 
@@ -81,7 +80,7 @@ export default function CoreDifferentiators() {
 
   return (
     <section className="py-20 sm:py-24">
-      <div className="sec-container max-w-[1400px] mx-auto px-6">
+      <div className="sec-container max-w-350 mx-auto px-6">
         
         {/* Header Section */}
         <motion.div

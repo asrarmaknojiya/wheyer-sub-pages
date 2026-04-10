@@ -7,7 +7,7 @@ export default function AboutHero() {
       {/* BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/istockphoto-1302343043-612x612.jpg"
+          src="/about-home.jpg"
           className="w-full h-full object-cover scale-105"
         />
         <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/60" />
