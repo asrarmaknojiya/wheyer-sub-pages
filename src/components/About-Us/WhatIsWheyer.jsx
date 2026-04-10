@@ -10,10 +10,10 @@ const WhatIsWheyer = () => {
 
         {/* SECTION HEADER */}
         <div className="max-w-3xl mb-16">
-          <h2 className="about-heading mb-4">
+          <h2 className="heading about-heading mb-4">
             What is Wheyer?
           </h2>
-          <p className="about-heading-title pl-4">
+          <p className="heading-title about-heading-title pl-4">
             The infrastructure connecting you to the world’s most trusted travel creators.
           </p>
         </div>
