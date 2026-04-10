@@ -309,7 +309,7 @@ export default function CTASection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="pristina italic heading text-3xl sm:text-5xl lg:text-6xl leading-tight">
+          <h2 className="  heading about-heading ">
             Get Started
           </h2>
         </motion.div>
