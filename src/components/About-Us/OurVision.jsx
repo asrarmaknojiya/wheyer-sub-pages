@@ -14,7 +14,7 @@ const OurVision = () => {
         fill
         priority
         quality={70}
-        
+     
         className="object-cover"
       />
 
