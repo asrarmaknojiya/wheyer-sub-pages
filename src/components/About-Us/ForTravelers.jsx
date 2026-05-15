@@ -77,7 +77,7 @@ export default function ForTravelers() {
           {/* Changed text-right -> text-left and removed margin-top, aligned font sizes */}
           <div className="lg:max-w-2xl text-left border-l border-gray-100 pl-8">
              <p className="pristina text-4xl  opacity-80 mb-4 leading-none italic">"No guesswork. No risk."</p>
-             <p className="text-gray-400 text-base font-light leading-relaxed italic">
+             <p className="heading-title about-heading-title italic">
                The accountability the industry forgot, built into every journey.
              </p>
           </div>

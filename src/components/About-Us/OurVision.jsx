@@ -33,13 +33,13 @@ const OurVision = () => {
               Our Vision
             </span>
 
-            <h2 className="text-4xl md:text-6xl font-bold leading-[0.95] mb-6">
+            <h2 className="heading about-heading text-white mb-6">
               The Global <br />
               <span className="text-cyan-400">Standard</span> <br />
               for Travel Trust
             </h2>
 
-            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-xl">
+            <p className="heading-title about-heading-title text-white max-w-xl">
               To build a trusted travel marketplace where discovery, booking,
               and experiences are transparent, secure, and reliable.
             </p>

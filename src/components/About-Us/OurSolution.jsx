@@ -24,11 +24,11 @@ const OurSolution = () => {
           <div className="max-w-[650px] mb-14">
            
 
-            <h2 className="heading text-3xl md:text-5xl font-semibold leading-tight">
+            <h2 className="heading about-heading ">
               How Wheyer Works
             </h2>
 
-            <p className="text-gray mt-4 text-sm md:text-base leading-relaxed">
+            <p className="heading-title about-heading-title mt-4">
               Wheyer introduces a structured, trust-first system for travel bookings —
               ensuring every step is verified, protected, and transparent.
             </p>
