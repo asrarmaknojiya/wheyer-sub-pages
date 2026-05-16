@@ -40,10 +40,15 @@
 }
 
 /* ── Base ────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--primary-font);
   background-color: var(--color-bg); /* eggshell background */
   color: var(--color-secondary);
+  overflow-x: hidden;
 }
 
 /* ── Autofill reset ──────────────────────────────────────── */

@@ -1,32 +1,24 @@
-// import CoreDifferentiators from "@/components/About-Us/Differentiat";
-// import AboutHero from "@/components/About-Us/Hero";
-// import VendorSection from "@/components/About-Us/VendorSection";
-// import ForTravelers from "@/components/About-Us/ForTravelers";
-// import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
-// import OurSolution from "@/components/About-Us/OurSolution";
-// import OurVision from "@/components/About-Us/OurVision";
-// import TrustLayer from "@/components/About-Us/TrustLayer";
-// import TheProblem from "@/components/About-Us/TheProblem";
-// import CTASection from "@/components/About-Us/Cta";
+import Head from "next/head";
+import HeroSection from "@/components/About-Us/HeroSection";
+import ProblemSection from "@/components/About-Us/ProblemSection";
+import OriginSection from "@/components/About-Us/OriginSection";
 
+export default function AboutUs() {
+  return (
+    <>
+      <Head>
+        <title>About Us — Wheyer | India&apos;s First Vendor-First Travel Marketplace</title>
+        <meta
+          name="description"
+          content="Discover the story behind Wheyer — India's first open travel marketplace built for independent operators and genuine travellers."
+        />
+      </Head>
 
-// export default function Home() {
-//     return (
-//         <>
-//             <AboutHero />
-//             <WhatIsWheyer />
-//             <TheProblem />
-//             <OurSolution />
-//             <CoreDifferentiators />
-//             <ForTravelers />
-//             <VendorSection/>
-//             <OurVision/>
-//             <TrustLayer />
-//             <CTASection/>
-
-
-
-
-//         </>
-//     );
-// }
+      <main className="overflow-x-hidden">
+        <HeroSection />
+        <ProblemSection />
+        <OriginSection />
+      </main>
+    </>
+  );
+}
