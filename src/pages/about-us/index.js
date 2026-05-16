@@ -2,6 +2,10 @@ import Head from "next/head";
 import HeroSection from "@/components/About-Us/HeroSection";
 import ProblemSection from "@/components/About-Us/ProblemSection";
 import OriginSection from "@/components/About-Us/OriginSection";
+import ConvictionSection from "@/components/About-Us/Convictionsection";
+import FourWaysSection from "@/components/About-Us/Fourwayssection";
+import TeamSection from "@/components/About-Us/TeamSection";
+import BelieveSection from "@/components/About-Us/BelieveSection";
 
 export default function AboutUs() {
   return (
@@ -18,6 +22,12 @@ export default function AboutUs() {
         <HeroSection />
         <ProblemSection />
         <OriginSection />
+        <ConvictionSection />
+        <FourWaysSection />
+        <TeamSection />
+        <BelieveSection />
+       
+
       </main>
     </>
   );
