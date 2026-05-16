@@ -1,32 +1,32 @@
-import CoreDifferentiators from "@/components/About-Us/Differentiat";
-import AboutHero from "@/components/About-Us/Hero";
-import VendorSection from "@/components/About-Us/VendorSection";
-import ForTravelers from "@/components/About-Us/ForTravelers";
-import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
-import OurSolution from "@/components/About-Us/OurSolution";
-import OurVision from "@/components/About-Us/OurVision";
-import TrustLayer from "@/components/About-Us/TrustLayer";
-import TheProblem from "@/components/About-Us/TheProblem";
-import CTASection from "@/components/About-Us/Cta";
+// import CoreDifferentiators from "@/components/About-Us/Differentiat";
+// import AboutHero from "@/components/About-Us/Hero";
+// import VendorSection from "@/components/About-Us/VendorSection";
+// import ForTravelers from "@/components/About-Us/ForTravelers";
+// import WhatIsWheyer from "@/components/About-Us/WhatIsWheyer";
+// import OurSolution from "@/components/About-Us/OurSolution";
+// import OurVision from "@/components/About-Us/OurVision";
+// import TrustLayer from "@/components/About-Us/TrustLayer";
+// import TheProblem from "@/components/About-Us/TheProblem";
+// import CTASection from "@/components/About-Us/Cta";
 
 
-export default function Home() {
-    return (
-        <>
-            <AboutHero />
-            <WhatIsWheyer />
-            <TheProblem />
-            <OurSolution />
-            <CoreDifferentiators />
-            <ForTravelers />
-            <VendorSection/>
-            <OurVision/>
-            <TrustLayer />
-            <CTASection/>
+// export default function Home() {
+//     return (
+//         <>
+//             <AboutHero />
+//             <WhatIsWheyer />
+//             <TheProblem />
+//             <OurSolution />
+//             <CoreDifferentiators />
+//             <ForTravelers />
+//             <VendorSection/>
+//             <OurVision/>
+//             <TrustLayer />
+//             <CTASection/>
 
 
 
 
-        </>
-    );
-}
+//         </>
+//     );
+// }
