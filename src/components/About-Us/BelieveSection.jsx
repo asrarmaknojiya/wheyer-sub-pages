@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState } from "react";
 
 const CONVICTIONS = [
   {
@@ -41,346 +41,146 @@ const CONVICTIONS = [
   },
 ];
 
-const N = CONVICTIONS.length;
-const mod = (n, m) => ((n % m) + m) % m;
-
 export default function BelieveSection() {
-  const containerRef = useRef(null);
-  const progressRef = useRef(0); // float: floor=activeIndex, frac=transition 0→1
-  const [renderProgress, setRenderProgress] = useState(0);
-  const touchStartY = useRef(null);
-  const lastTouchY = useRef(null);
-  const wheelAccum = useRef(0);
-  const wheelTimer = useRef(null);
-  const rafRef = useRef(null);
-  const isAnimating = useRef(false);
+  const [activeIdx, setActiveIdx] = useState(0);
 
-  const animateTo = useCallback((target) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    isAnimating.current = true;
-    const from = progressRef.current;
-    const dist = target - from;
-    const duration = 650;
-    const start = performance.now();
-    const tick = (now) => {
-      const t = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - t, 4);
-      progressRef.current = from + dist * ease;
-      setRenderProgress(progressRef.current);
-      if (t < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        progressRef.current = target;
-        setRenderProgress(target);
-        isAnimating.current = false;
-      }
-    };
-    rafRef.current = requestAnimationFrame(tick);
-  }, []);
-
-  const stepTo = useCallback((direction) => {
-    const current = Math.round(progressRef.current);
-    animateTo(current + direction);
-  }, [animateTo]);
-
-  const navigateTo = useCallback((targetCardIndex) => {
-    if (isAnimating.current) return;
-    const cur = mod(Math.round(progressRef.current), N);
-    let delta = targetCardIndex - cur;
-    if (delta > N / 2) delta -= N;
-    if (delta < -N / 2) delta += N;
-    animateTo(Math.round(progressRef.current) + delta);
-  }, [animateTo]);
-
-  // Wheel
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const onWheel = (e) => {
-      e.preventDefault();
-      const isMouse = !e.deltaMode && Math.abs(e.deltaY) > 50;
-      if (isMouse) {
-        if (!isAnimating.current) stepTo(e.deltaY > 0 ? 1 : -1);
-        return;
-      }
-      wheelAccum.current += e.deltaY;
-      clearTimeout(wheelTimer.current);
-      wheelTimer.current = setTimeout(() => { wheelAccum.current = 0; }, 150);
-      if (Math.abs(wheelAccum.current) >= 80 && !isAnimating.current) {
-        const dir = wheelAccum.current > 0 ? 1 : -1;
-        wheelAccum.current = 0;
-        stepTo(dir);
-      }
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [stepTo]);
-
-  // Touch
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const onTouchStart = (e) => {
-      touchStartY.current = e.touches[0].clientY;
-      lastTouchY.current = e.touches[0].clientY;
-    };
-    const onTouchMove = (e) => {
-      e.preventDefault();
-      lastTouchY.current = e.touches[0].clientY;
-    };
-    const onTouchEnd = () => {
-      if (touchStartY.current === null) return;
-      const delta = touchStartY.current - lastTouchY.current;
-      if (Math.abs(delta) > 40) stepTo(delta > 0 ? 1 : -1);
-      touchStartY.current = null;
-    };
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
-    el.addEventListener("touchend", onTouchEnd);
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [stepTo]);
-
-  // Keyboard
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") stepTo(1);
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") stepTo(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [stepTo]);
-
-  // Derive display
-  const activeIndex = Math.floor(renderProgress);
-  const frac = renderProgress - activeIndex;
-  const currentCard = mod(activeIndex, N);
-  const nextCard = mod(activeIndex + 1, N);
-
-  const getImageLayer = (cardIndex) => {
-    if (cardIndex === currentCard) {
-      return { clipPath: `inset(${frac * 100}% 0 0 0)`, zIndex: 2 };
+  const handleScrollToCard = (index) => {
+    const targetElement = document.getElementById(`card-anchor-${index}`);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    if (cardIndex === nextCard && frac > 0.001) {
-      return { clipPath: `inset(0 0 ${(1 - frac) * 100}% 0)`, zIndex: 1 };
-    }
-    return { clipPath: "inset(0 0 100% 0)", zIndex: 0 };
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-[#0a0a0a] text-white relative w-full select-none"
-      style={{ height: "100vh", overflow: "hidden", touchAction: "none" }}
-    >
-      <div
-        className="w-full h-full flex flex-col lg:flex-row px-6 md:px-16 gap-8 lg:gap-12 items-stretch py-8"
-        style={{ maxWidth: "1440px", margin: "0 auto" }}
-      >
+    // Outer section locks the entire window from moving
+    <div className="bg-[#0a0a0a] text-white w-full h-screen overflow-hidden selection:bg-[#c8a96e]/30 py-10">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col lg:flex-row gap-8 lg:gap-12 h-full items-stretch relative">
 
-        {/* ── LEFT SIDEBAR ── */}
-        <div className="w-full lg:w-[28%] h-full flex flex-col justify-center gap-4 z-40">
+        {/* ── LEFT SIDEBAR (FIXED IN PLACE) ── */}
+        <div className="w-full lg:w-[28%] h-auto lg:h-full flex flex-col justify-center py-8 lg:py-0 gap-4 z-40 order-2 lg:order-1">
           <div className="flex items-center gap-3 mb-4">
-            <span style={{ color: "#c8a96e", fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700 }}>+</span>
-            <span style={{ fontSize: "0.65rem", fontFamily: "monospace", letterSpacing: "0.25em", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", fontWeight: 600 }}>
+            <span className="text-[#c8a96e] text-[0.75rem] font-mono font-bold">+</span>
+            <span className="text-[0.65rem] font-mono tracking-[0.25em] text-white/40 uppercase font-semibold">
               What We Believe
             </span>
           </div>
 
-          {CONVICTIONS.map((c, i) => (
-            <button
-              key={c.id}
-              onClick={() => navigateTo(i)}
-              style={{
-                fontFamily: "'Exo', sans-serif",
-                fontSize: currentCard === i ? "1.5rem" : "1.15rem",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                color: currentCard === i ? "#ffffff" : "rgba(255,255,255,0.2)",
-                opacity: currentCard === i ? 1 : 0.35,
-                transform: currentCard === i ? "translateX(8px)" : "translateX(0px)",
-                transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
-                background: "none",
-                border: "none",
-                outline: "none",
-                cursor: "pointer",
-                textAlign: "left",
-                padding: 0,
-              }}
-            >
-              <span style={{ fontFamily: "monospace", fontWeight: 400, fontSize: "0.6em", color: "#c8a96e", marginRight: "0.4rem" }}>
-                [{c.num}]
-              </span>
-              {c.short}
-            </button>
-          ))}
-
-          {/* Scroll cue */}
-          <div style={{ marginTop: "2rem", display: "flex", alignItems: "center", gap: "0.5rem", opacity: 0.3 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-              <div style={{ fontSize: "0.6rem", fontFamily: "monospace", letterSpacing: "0.15em", color: "rgba(255,255,255,0.6)", textTransform: "uppercase" }}>Scroll or swipe</div>
-              <div style={{ display: "flex", gap: "6px", fontSize: "0.75rem" }}>↑ ↓</div>
-            </div>
+          <div className="flex flex-col gap-3 items-start">
+            {CONVICTIONS.map((c, i) => (
+              <button
+                key={c.id}
+                onClick={() => handleScrollToCard(i)}
+                style={{ fontFamily: "'Exo', sans-serif" }}
+                className={`text-left transition-all duration-500 ease-out border-none bg-none p-0 outline-none cursor-pointer ${activeIdx === i
+                  ? "text-white text-2xl font-bold translate-x-2 opacity-100"
+                  : "text-white/20 text-lg font-bold translate-x-0 opacity-35 hover:opacity-60 hover:text-white/40"
+                  }`}
+              >
+                <span className="font-mono font-normal text-[0.6em] text-[#c8a96e] mr-2">
+                  [{c.num}]
+                </span>
+                {c.short}
+              </button>
+            ))}
           </div>
+
+          {/* Progress Indicator Dots */}
+
         </div>
 
-        {/* ── RIGHT COLUMN ── */}
-        <div className="w-full lg:w-[72%] h-full flex flex-col relative">
+        {/* ── RIGHT COLUMN (ISOLATED SCROLL CONTAINER) ── */}
+        <div
+          className="w-full lg:w-[72%] h-full overflow-y-auto no-scrollbar relative order-1 lg:order-2 space-y-[50vh] lg:space-y-0"
+          style={{
+            scrollbarWidth: "none", /* Firefox */
+            msOverflowStyle: "none", /* IE/Edge */
+          }}
+        >
+          {/* Webkit Specific rule to hide scrollbars on Right Deck */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+            .no-scrollbar::-webkit-scrollbar { display: none; }
+          `}} />
 
-          {/* IMAGE STACK */}
-          <div
-            className="relative w-full flex-1 overflow-hidden bg-neutral-900"
-            style={{ borderRadius: "1rem" }}
-          >
-            {CONVICTIONS.map((c, i) => (
-              <img
+          {CONVICTIONS.map((c, i) => {
+            // Observer to seamlessly switch active styling variables on scroll
+            const registerRef = (el) => {
+              if (!el) return;
+              const observer = new IntersectionObserver(
+                ([entry]) => {
+                  if (entry.isIntersecting) {
+                    setActiveIdx(i);
+                  }
+                },
+                // Custom viewport window bounds inside our custom container
+                {
+                  threshold: 0.5,
+                  root: el.parentElement,
+                  rootMargin: "0px 0px -20% 0px"
+                }
+              );
+              observer.observe(el);
+            };
+
+            return (
+              <div
                 key={c.id}
-                src={c.img}
-                alt={c.title}
-                style={{
-                  ...getImageLayer(i),
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  willChange: "clip-path",
-                  userSelect: "none",
-                }}
-                loading="eager"
-                draggable={false}
-              />
-            ))}
+                id={`card-anchor-${i}`}
+                ref={registerRef}
+                className="w-full h-full flex items-center justify-center sticky top-0 overflow-hidden py-6 lg:py-12"
+                style={{ zIndex: i + 1 }}
+              >
+                {/* Visual Image Background Panel */}
+                <div className="absolute inset-0 w-full h-full overflow-hidden bg-neutral-900 shadow-2xl">
+                  <img
+                    src={c.img}
+                    alt={c.title}
+                    className="w-full h-full object-cover select-none pointer-events-none brightness-[0.75]"
+                    loading="eager"
+                  />
+                  {/* Linear Shadow Drop for optimal structural overlay readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/40 to-transparent" />
 
-            {/* Gradient overlay */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.3) 45%, transparent 72%)",
-                zIndex: 10,
-                pointerEvents: "none",
-              }}
-            />
 
-            {/* Number badge */}
-            <div
-              style={{
-                position: "absolute",
-                top: "1.25rem",
-                right: "1.25rem",
-                zIndex: 20,
-                fontFamily: "monospace",
-                color: "#c8a96e",
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                letterSpacing: "0.05em",
-                transition: "opacity 0.3s",
-              }}
-            >
-              [{CONVICTIONS[currentCard].num}]
-            </div>
+                </div>
 
-            {/* ── CONTENT OVERLAY ── */}
-            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 20 }}>
-              {CONVICTIONS.map((c, i) => {
-                let opacity = 0;
-                if (i === currentCard) opacity = Math.max(0, 1 - frac * 2.5);
-                if (i === nextCard && frac > 0.2) opacity = Math.min(1, (frac - 0.2) * 2.5);
+                {/* ── CARD CONTENT INFO LAYOVER ── */}
+                <div className="absolute bottom-8 left-6 right-6 md:bottom-12 md:left-10 md:right-10 z-20 pointer-events-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
 
-                const yShift = i === currentCard ? frac * -20 : (1 - frac) * 20;
+                    <div className="md:col-span-7 flex flex-col gap-3">
+                      <h3
+                        style={{ fontFamily: "'Exo', sans-serif" }}
+                        className="text-white font-bold leading-tight tracking-tight text-xl md:text-2xl lg:text-3xl max-w-xl"
+                      >
+                        {c.title}
+                      </h3>
+                      <p className="text-[0.9rem] text-white/70 font-normal leading-relaxed max-w-xl">
+                        {c.desc}
+                      </p>
+                    </div>
 
-                return (
-                  <div
-                    key={c.id}
-                    style={{
-                      opacity,
-                      transform: `translateY(${yShift}px)`,
-                      position: "absolute",
-                      bottom: "1.75rem",
-                      left: "1.75rem",
-                      right: "1.75rem",
-                      pointerEvents: opacity > 0.4 ? "auto" : "none",
-                    }}
-                  >
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}
-                      className="md:grid-cols-12"
-                    >
-                      <div className="md:col-span-7" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <h3
-                          style={{
-                            fontFamily: "'Exo', sans-serif",
-                            fontSize: "clamp(1rem, 2vw, 1.4rem)",
-                            fontWeight: 700,
-                            letterSpacing: "-0.02em",
-                            lineHeight: 1.3,
-                            color: "#fff",
-                            margin: 0,
-                          }}
-                        >
-                          {c.title}
-                        </h3>
-                        <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, margin: 0 }}>
-                          {c.desc}
-                        </p>
-                      </div>
-                      <div className="md:col-span-5" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <span style={{ fontSize: "0.6rem", fontFamily: "monospace", color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: 600 }}>
-                          Categories
-                        </span>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.375rem" }}>
-                          {c.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              style={{
-                                fontSize: "0.68rem",
-                                fontFamily: "monospace",
-                                letterSpacing: "0.03em",
-                                padding: "0.25rem 0.625rem",
-                                background: "rgba(255,255,255,0.07)",
-                                border: "1px solid rgba(255,255,255,0.1)",
-                                color: "rgba(255,255,255,0.65)",
-                                borderRadius: "6px",
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
+                    <div className="md:col-span-5 flex flex-col gap-2.5">
+                      <span className="text-[0.6rem] font-mono text-white/40 tracking-[0.2em] uppercase font-bold">
+                        Categories
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {c.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[0.68rem] font-mono tracking-wide px-2.5 py-1 bg-white/5 border border-white/10 text-white/75 rounded-md backdrop-blur-sm whitespace-nowrap"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* Progress dots */}
-          <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem", justifyContent: "center", alignItems: "center" }}>
-            {CONVICTIONS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => navigateTo(i)}
-                style={{
-                  width: currentCard === i ? "28px" : "6px",
-                  height: "6px",
-                  borderRadius: "999px",
-                  background: currentCard === i ? "#c8a96e" : "rgba(255,255,255,0.2)",
-                  border: "none",
-                  outline: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
-                }}
-                aria-label={`Go to ${CONVICTIONS[i].short}`}
-              />
-            ))}
-          </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>
